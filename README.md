@@ -10,6 +10,8 @@ The main purpose of this demo is to show how a modern web framework enables you 
 
 This is primarily meant for internal use to show how modern web frameworks could work. In practice, a lot more features would be needed to make this a viable application.
 
+Note that I never wrote any Perl code before this, so it is quite likely not the nicest Perl ever written.
+
 ## How to use
 
 For this to work, you need to have a few things installed: [NodeJS](https://nodejs.org) and [Yarn](https://yarnpkg.com/) to be able to compile/adjust the frontend. To be able to run the backend, you need a new enough version of [Perl](https://www.perl.org/) and [Mojolicious](https://mojolicious.org/).

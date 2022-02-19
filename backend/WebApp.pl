@@ -1,0 +1,62 @@
+use Mojolicious::Lite -signatures;
+use Mojo::Asset::File;
+use Data::Dumper;
+
+
+require './Data.pl';
+
+my $all_data = get_data();
+
+get '/' => sub {
+  my $c = shift;
+  $c->res->headers->content_type('text/html; charset=UTF-8');
+  $c->res->content->asset(Mojo::Asset::File->new(path => './public/index.html'));
+  $c->rendered(200);
+};
+
+get '/data' => sub {
+  my $c = shift;
+  $c->render(json => $all_data->{'data'});
+};
+
+get '/api/courses' => sub {
+  my $c = shift;
+  $c->render(json => $all_data->{'courses'});
+};
+
+get '/api/courses/:course/workflows' => sub {
+  my $c = shift;
+  $c->render(json => $all_data->{'workflows'});
+};
+
+get '/api/courses/:course/workflows/:workflow/years' => sub {
+  my $c = shift;
+  $c->render(json => $all_data->{'years'});
+};
+
+get '/api/courses/:course/workflows/:workflow/years/:year/formdata' => sub {
+  my $c = shift;
+  my $course = $c->param('course');
+  my $workflow = $c->param('workflow');
+  my $year = $c->param('year');
+  my $resp = {
+	'data' => $all_data->{'data'}->{$course}->{$workflow}->{$year},
+	'schema' => $all_data->{'specs'}->{$workflow}
+  };
+  $c->render(json => $resp);
+};
+
+post '/api/courses/:course/workflows/:workflow/years/:year/store' => sub {
+  my $c = shift;
+  my $course = $c->param('course');
+  my $workflow = $c->param('workflow');
+  my $year = $c->param('year');
+  my $req_object = $c->req->json;
+  say "Received data to store for course '$course', workflow '$workflow' and year '$year'";
+  say Dumper $req_object;
+  $all_data->{'data'}->{$course}->{$workflow}->{$year} = $req_object;
+  $c->rendered(200);
+};
+
+app->start;
+

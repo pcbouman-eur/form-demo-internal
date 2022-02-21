@@ -25,7 +25,7 @@ yarn build
 
 The first step will download the necessary dependencies. The second step will compile the frontend and put the result in in the `backend/public` directory.
 
-The application can be started with the `morbo` development server that is part of Mojolicious, by running the following within the `backend` directory:
+One the frontend assets are compiled, the application can be started with the `morbo` development server that is part of Mojolicious, by running the following within the `backend` directory:
 
 ```
 morbo WebApp.pl

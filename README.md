@@ -1,4 +1,4 @@
-# Brief Demo for Webbased forms via Perl and jsonform
+# Brief Demo for Webbased forms via Perl and JSONforms
 
 This is a brief demo to show how, roughly speaking, a webservice for web based forms could be implemented by combining the Perl Web Framework [Mojolious](https://mojolicious.org/) on the server side, and the frontend framework [JSONForms](https://jsonforms.io/). In this example, Vue is used together with Vuetify, but JSONForms supports other frontend frameworks as well (e.g. React and Angular).
 

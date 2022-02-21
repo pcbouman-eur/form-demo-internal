@@ -29,8 +29,7 @@ my $course_spec = {
 	'required' => ['coursecode', 'name', 'description']		
 };
 
-# JSON Schema based data specification for an course. This uses some more advanced data types, such as an array of objects
-
+# JSON Schema based data specification for an assessment. This uses some more advanced data types, such as an array of objects
 my $assessment_spec = {
 	'type' => 'object',
 	'properties' => {

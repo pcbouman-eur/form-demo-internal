@@ -1,7 +1,13 @@
+# A list of all courses in this example
 my $courses = [ 'FEB11013X', 'FEB22012' ];
 
+# A list of all years in this example
 my $years = [ 2020, 2021 ];
 
+# A list of the workflows in this example
+my $workflows = ['assessment', 'course'];
+
+# JSON Schema based data specification for a course. This is used by JSON forms to determine the structure of the form.
 my $course_spec = {
 	'type' => 'object',
         'properties' => {
@@ -22,6 +28,8 @@ my $course_spec = {
          },
 	'required' => ['coursecode', 'name', 'description']		
 };
+
+# JSON Schema based data specification for an course. This uses some more advanced data types, such as an array of objects
 
 my $assessment_spec = {
 	'type' => 'object',
@@ -51,11 +59,10 @@ my $assessment_spec = {
 	}
 };
 
-# This should have the same entries as the $specs data
-my $workflows = ['assessment', 'course'];
-
+# A hash that can provide the schema specification of both the courses
 my $specs = {'assessment' => $assessment_spec, 'course' => $course_spec};
 
+# A hash with actual data. In an actual application, this should come from a database
 my $data = {
 	'FEB11013X' => {
 		'course' => {
@@ -123,9 +130,7 @@ my $data = {
 	}
 };
 
-#my $data = [{'id' => 35, 'name' => '', 'description' => 'Een test verhaaltje'},
-#            {'id' => 36, 'name' => 'Hallo', 'description' => 'Een ander verhaal'}];
-
+# A method that just provides a hash with all the data in this example
 sub get_data() {
   return {
      'specs' => $specs,

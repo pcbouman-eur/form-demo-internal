@@ -3,10 +3,11 @@ use Mojo::Asset::File;
 use Data::Dumper;
 
 
+# Retrieve example data from a separate file
 require './Data.pl';
-
 my $all_data = get_data();
 
+# Serve the static HTML when the browser requests the root
 get '/' => sub {
   my $c = shift;
   $c->res->headers->content_type('text/html; charset=UTF-8');
@@ -14,26 +15,25 @@ get '/' => sub {
   $c->rendered(200);
 };
 
-get '/data' => sub {
-  my $c = shift;
-  $c->render(json => $all_data->{'data'});
-};
-
+# Provide JSON data of all courses available
 get '/api/courses' => sub {
   my $c = shift;
   $c->render(json => $all_data->{'courses'});
 };
 
+# Provide JSON data of the workflows available for a course
 get '/api/courses/:course/workflows' => sub {
   my $c = shift;
   $c->render(json => $all_data->{'workflows'});
 };
 
+# Provide JSON data of the years available for a course/workflow combination
 get '/api/courses/:course/workflows/:workflow/years' => sub {
   my $c = shift;
   $c->render(json => $all_data->{'years'});
 };
 
+# Provide a JSON object with all relevant data related to a form
 get '/api/courses/:course/workflows/:workflow/years/:year/formdata' => sub {
   my $c = shift;
   my $course = $c->param('course');
@@ -46,6 +46,7 @@ get '/api/courses/:course/workflows/:workflow/years/:year/formdata' => sub {
   $c->render(json => $resp);
 };
 
+# Receive an object with updated form data. Currently this is just printed.
 post '/api/courses/:course/workflows/:workflow/years/:year/store' => sub {
   my $c = shift;
   my $course = $c->param('course');
@@ -58,5 +59,5 @@ post '/api/courses/:course/workflows/:workflow/years/:year/store' => sub {
   $c->rendered(200);
 };
 
+# Start the web application
 app->start;
-
